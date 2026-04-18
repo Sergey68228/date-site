@@ -3,40 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>У меня к тебе вопросик 💌</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <title>Пойдёшь со мной гулять?</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="page page-home">
-  <div class="hearts" aria-hidden="true"></div>
+<body class="page">
+  <div class="floating-hearts"></div>
 
-  <main class="card floating">
-    <div class="badge">special invite</div>
+  <main class="card">
+    <div class="badge">for you ♡</div>
 
-    <div class="character" aria-hidden="true">
-      <div class="face">
-        <span class="eye eye-left"></span>
-        <span class="eye eye-right"></span>
-        <span class="blush blush-left"></span>
-        <span class="blush blush-right"></span>
-        <span class="smile"></span>
+    <div class="pet-wrap">
+      <div class="cat-media-wrap" id="catWrap">
+        <img src="cat1.gif" alt="Котик" class="cat-media" id="mainCat" />
       </div>
     </div>
 
-    <p class="eyebrow">pov: я сделала сайт ради одного вопроса</p>
-    <h1>Пойдёшь со мной на свидание? 🌷</h1>
+    <h1>пойдёшь со мной гулять?</h1>
     <p class="subtitle">
-      Обещаю: вкусный кофе, милые разговоры, красивые фотки и очень хорошую компанию.
+      я хотел позвать тебя прогуляться, я даже сделал для этого целый сайт
     </p>
 
-    <div class="actions" id="choiceArea">
-      <a class="btn btn-yes pulse" href="yes.html">Дааа 💖</a>
-      <button class="btn btn-no" id="noBtn" type="button">Неа 🙈</button>
+    <div class="buttons">
+      <a class="btn btn-yes" href="yes.html" id="yesBtn">да 😸</a>
+      <button class="btn btn-no" id="noBtn" type="button">нет</button>
     </div>
 
-    <p class="hint">Подсказка: правильный ответ очень красивый.</p>
+    <p class="tiny-note" id="noCounterText">подумай хорошо…</p>
   </main>
 
   <script src="script.js"></script>
