@@ -1,4 +1,8 @@
 const floatingHearts = document.querySelector(".floating-hearts");
+const noBtn = document.getElementById("noBtn");
+const noCounterText = document.getElementById("noCounterText");
+const mainCat = document.getElementById("mainCat");
+const yesBtn = document.getElementById("yesBtn");
 
 function createHeart() {
   if (!floatingHearts) return;
@@ -17,42 +21,63 @@ function createHeart() {
   }, 8000);
 }
 
-setInterval(createHeart, 500);
+if (floatingHearts) {
+  setInterval(createHeart, 500);
 
-for (let i = 0; i < 10; i += 1) {
-  setTimeout(createHeart, i * 180);
+  for (let i = 0; i < 10; i += 1) {
+    setTimeout(createHeart, i * 180);
+  }
 }
 
-const noBtn = document.getElementById("noBtn");
-const noCounterText = document.getElementById("noCounterText");
+function showCat1() {
+  if (!mainCat) return;
+  mainCat.src = "cat1.gif";
+  mainCat.alt = "Котик";
+}
+
+function showCat2() {
+  if (!mainCat) return;
+  mainCat.src = "cat2.gif";
+  mainCat.alt = "Котик просит";
+}
 
 if (noBtn) {
   const messages = [
     "подумай ещё раз…",
     "точно нет? 🥺",
-    "эта кнопка работает странно",
     "может всё-таки да?",
-    "я старалась между прочим",
+    "ну пожалуйста",
+    "котик уже просит за меня",
+    "я правда хочу погулять с тобой",
     "нет здесь не приветствуется 💔",
     "ладно, выбора у тебя почти нет"
   ];
 
   let moveCount = 0;
   let isFloating = false;
+  let catChangedToTwo = false;
 
-  function moveNoButton() {
+  function activateNoMode(event) {
+    if (event && event.type === "touchstart") {
+      event.preventDefault();
+    }
+
     moveCount += 1;
 
+    if (!catChangedToTwo) {
+      showCat2();
+      catChangedToTwo = true;
+    }
+
     if (noCounterText) {
-      noCounterText.textContent =
-        messages[(moveCount - 1) % messages.length];
+      noCounterText.textContent = messages[(moveCount - 1) % messages.length];
     }
 
     const maxX = window.innerWidth - noBtn.offsetWidth - 20;
     const maxY = window.innerHeight - noBtn.offsetHeight - 20;
 
-    const x = Math.max(10, Math.random() * maxX);
-    const y = Math.max(10, Math.random() * maxY);
+    const x = Math.max(10, Math.random() * Math.max(20, maxX));
+    const y = Math.max(10, Math.random() * Math.max(20, maxY));
 
     noBtn.classList.add("is-floating");
     noBtn.style.position = "fixed";
@@ -62,8 +87,9 @@ if (noBtn) {
     isFloating = true;
   }
 
-  noBtn.addEventListener("mouseenter", moveNoButton);
-  noBtn.addEventListener("click", moveNoButton);
+  noBtn.addEventListener("mouseenter", activateNoMode);
+  noBtn.addEventListener("click", activateNoMode);
+  noBtn.addEventListener("touchstart", activateNoMode, { passive: false });
 
   window.addEventListener("resize", () => {
     if (!isFloating) return;
@@ -73,7 +99,17 @@ if (noBtn) {
     const overflowY = rect.bottom > window.innerHeight || rect.top < 0;
 
     if (overflowX || overflowY) {
-      moveNoButton();
+      const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+      const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+
+      noBtn.style.left = `${Math.max(10, Math.random() * Math.max(20, maxX))}px`;
+      noBtn.style.top = `${Math.max(10, Math.random() * Math.max(20, maxY))}px`;
     }
+  });
+}
+
+if (yesBtn) {
+  yesBtn.addEventListener("click", () => {
+    sessionStorage.setItem("selectedCat", "cat3");
   });
 }
